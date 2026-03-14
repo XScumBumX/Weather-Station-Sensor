@@ -12,7 +12,7 @@ class Sensor:
         return round(voltage, 3)
 
     def run(self):
-        print("Sensor started...\n")
+        print("Weather Sensor started...\n")
 
         while True:
             voltage = self.generate_voltage()
