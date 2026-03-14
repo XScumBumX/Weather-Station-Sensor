@@ -22,3 +22,4 @@ jobs:
     - name: Run Sensor Simulation (5 seconds)
       run: |
         timeout 5s python sensor.py || true
+
