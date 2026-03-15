@@ -1,5 +1,6 @@
 import time
 import random
+import requests
 
 class Sensor:
 
@@ -12,12 +13,23 @@ class Sensor:
         return round(voltage, 3)
 
     def run(self):
-        print("Weather Sensor started...\n")
+    print("Sensor started...\n")
 
-        while True:
-            voltage = self.generate_voltage()
-            print(f"Voltage reading: {voltage} V")
-            time.sleep(1)
+    while True:
+        voltage = self.generate_voltage()
+
+        data = {
+            "voltage": voltage,
+            "timestamp": time.time()
+        }
+
+        try:
+            response = requests.post("http://localhost:3000/sample", json=data)
+            print(f"Sent voltage {voltage} V | Sampler response: {response.json()}")
+        except Exception as e:
+            print("Sampler not available")
+
+        time.sleep(1)
 
 
 if __name__ == "__main__":
