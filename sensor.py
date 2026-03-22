@@ -13,23 +13,23 @@ class Sensor:
         return round(voltage, 3)
 
     def run(self):
-    print("Sensor started...\n")
+        print("Sensor started...\n")
 
-    while True:
-        voltage = self.generate_voltage()
+        while True:
+            voltage = self.generate_voltage()
 
-        data = {
-            "voltage": voltage,
-            "timestamp": time.time()
-        }
+            data = {
+                "voltage": voltage,
+                "timestamp": time.time()
+            }
 
-        try:
-            response = requests.post("http://localhost:3000/sample", json=data)
-            print(f"Sent voltage {voltage} V | Sampler response: {response.json()}")
-        except Exception as e:
-            print("Sampler not available")
+            try:
+                response = requests.post("http://localhost:3000/sample", json=data)
+                print(f"Sent voltage {voltage} V | Sampler response: {response.json()}")
+            except:
+                print(f"Voltage {voltage} V generated but sampler not reachable")
 
-        time.sleep(1)
+            time.sleep(1)
 
 
 if __name__ == "__main__":
